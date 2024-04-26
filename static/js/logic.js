@@ -7,31 +7,31 @@
   
     // Create the map object with options.
 let map = L.map("map", {
-  center: [40, -98],
-  zoom: 5,
+  center: [30, -100],
+  zoom: 4,
 });
 streetmap.addTo(map);
 
 function createMarkers(data) {
 
   function getValue(x) {
-      return x > 90 ? "#47F79F" :
-          x > 70 ? "#F79F47" :
-          x > 50 ? "#F7F747" :
-          x > 30 ? "#9FF747" :
-          x > 10 ? "#47F747" :
-              "#47F79F";
+      return x > 90 ? "#FF4419" :
+          x > 70 ? "#FF8819" :
+          x > 50 ? "#FFBF19" :
+          x > 30 ? "#e0ff19" :
+          x > 10 ? "#A4FF0F" :
+              "#7cff0e";
   }
 
   function style(feature) {
       return {
           "color": "#000000",
           "stroke": true,
-          radius: feature.properties.mag * 4,
+          radius: feature.properties.mag * 3,
           fillColor: getValue(feature.geometry.coordinates[2]),
           weight: 0.25,
           opacity: 1,
-          fillOpacity: 0.8
+          fillOpacity: 0.9
       };
   }
 
@@ -51,7 +51,7 @@ function createMarkers(data) {
   legend.onAdd = function () {
       let div = L.DomUtil.create("div", "info legend");
       let limits = [-10, 10, 30, 50, 70, 90];
-      let colors = ['#47F79F', '#47F747', '#9FF747', '#F7F747', '#F79F47', '#47F79F'];
+      let colors = ['#7cff0e', '#A4FF0F', '#e0ff19', '#FFBF19', '#FF8819', '#FF4419'];
 
       for (let i = 0; i < limits.length; i++) {
           div.innerHTML += "<i style='background: " + colors[i] + "'></i> "
@@ -63,5 +63,5 @@ function createMarkers(data) {
 }
   
   
-  // Perform an API call to the Citi Bike API to get the station information. Call createMarkers when it completes.
+  // Perform an API call to the earhquake data. Call createMarkers when it completes.
   d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson").then(createMarkers);
